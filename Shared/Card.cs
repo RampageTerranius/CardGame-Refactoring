@@ -33,7 +33,7 @@ public enum eValue
 //base card class used by player and deck
 namespace Shared
 {
-    class Card
+    public class Card
     {
         private eSuit suit;
         private eValue val;

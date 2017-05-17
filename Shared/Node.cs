@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    class Node<T>
+    internal class Node<T>
     {
         private T data;
         public T Data

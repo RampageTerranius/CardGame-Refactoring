@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    class LinkedList<T>
+    public class LinkedList<T>
     {
         Node<T> Head;
         Node<T> Tail;
@@ -21,7 +21,12 @@ namespace Shared
                 return false;
         }
 
-        public void AddValue(T Data, Node<T> Current)
+        public void AddValue(T Data)
+        {
+            AddValue(Data, null);
+        }
+
+        private void AddValue(T Data, Node<T> Current)
         {
             //first run check
             if (Current == null)
@@ -46,11 +51,6 @@ namespace Shared
                 Tail = Current.Next;
                 Length++;
             }
-        }
-
-        public void AddValue(T Data)
-        {
-            AddValue(Data, null);
         }
 
         private bool FindValue(T Data, bool SearchFrontToBack, Node<T> Current)
