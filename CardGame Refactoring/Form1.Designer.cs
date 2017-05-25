@@ -1,4 +1,4 @@
-﻿namespace CardGame_Refactoring
+﻿namespace Client
 {
     partial class Viewer
     {

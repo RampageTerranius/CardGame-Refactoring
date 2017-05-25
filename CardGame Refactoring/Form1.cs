@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CardGame_Refactoring
+namespace Client
 {
     public partial class Viewer : Form
     {
@@ -17,8 +17,8 @@ namespace CardGame_Refactoring
             InitializeComponent();
         }
 
-        Controller controller;
-        public Controller Controller
+        ClientController controller;
+        public ClientController Controller
         {
             get
             {

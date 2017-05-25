@@ -41,8 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="LinkedList.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="NetworkAdapter.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

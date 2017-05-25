@@ -1,28 +1,13 @@
 ﻿//controls all the data to do with game state and the like
 
-namespace CardGame_Refactoring
+
+namespace Client
 {
-    public class Controller
+    public class ClientController : Shared.Controller
     {
-        Model model;
-        NetworkAdapter networkAdapter;
 
-        public Model Model
+        public ClientController ()
         {
-            get
-            {
-                return model;
-            }
-
-            set
-            {
-                model = value;
-            }
-        }
-        public Controller ()
-        {
-            networkAdapter = new NetworkAdapter();
-
         }
     }
 }

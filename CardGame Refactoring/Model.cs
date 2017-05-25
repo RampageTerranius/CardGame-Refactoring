@@ -1,12 +1,11 @@
 ﻿//Stores all the data to do with game state and the like 
 using Shared;
 
-namespace CardGame_Refactoring
+namespace Client
 {
-    public class Model
+    public class ClientModel : Model
     {
         Viewer view;
-        Deck deck;
 
         public Viewer View
         {

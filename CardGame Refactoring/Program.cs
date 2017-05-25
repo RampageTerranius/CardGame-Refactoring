@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CardGame_Refactoring
+namespace Client
 {
     static class Program
     {
@@ -16,9 +16,9 @@ namespace CardGame_Refactoring
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Model m = new Model();
+            ClientModel m = new ClientModel();
             Viewer v = new Viewer();
-            Controller c = new Controller();
+            ClientController c = new ClientController();
 
             m.View = v;
             v.Controller = c;
