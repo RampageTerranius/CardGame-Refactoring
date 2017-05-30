@@ -24,6 +24,8 @@ namespace Client
             v.Controller = c;
             c.Model = m;
 
+            c.networkAdapter.Start();
+
 
             Application.Run(v);
         }

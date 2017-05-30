@@ -5,14 +5,15 @@ namespace Client
 {
     public class ClientController : Controller
     {
-        Player[] player;
-        int totalPlayers;
-        NetworkAdapterClient networkAdapter;
+        private Player[] player;
+        private int totalPlayers;
+        public NetworkAdapterClient networkAdapter;
 
         public ClientController ()
         {
             player = new Player[TOTAL_ALLOWED_PLAYERS];
             totalPlayers = 0;
+            networkAdapter = new NetworkAdapterClient(this);
         }
     }
 }

@@ -8,29 +8,22 @@ namespace Server
 {
     class Program
     {
-        
+        public static ServerModel m = new ServerModel();
+        public static ServerController c = new ServerController();
+
         static void Main(string[] args)
         {
-            ServerModel m = new ServerModel();
-            ServerController c = new ServerController();
             c.Model = m;
             m.Controller = c;
 
-            bool loop = true;
             Console.WriteLine("Server starting...");
-            StartServer();   
-            Console.WriteLine("Server started.");
-
-            while (loop)
-            {
-                
-                
-            }
+            StartServer();
+            Console.WriteLine("Shutting down...");
         }
 
         static public void StartServer()
         {
-
+            c.networkAdapter.Start();
         }
     }
 }
