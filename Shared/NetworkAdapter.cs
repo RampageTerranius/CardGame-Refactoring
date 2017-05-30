@@ -37,7 +37,7 @@ namespace Shared
             private ManualResetEvent receiveDone =
                 new ManualResetEvent(false);
 
-            // The response from the remote device.  
+            // The response from the remote device.
             private String response = String.Empty;
             private Controller controller;
 
@@ -49,12 +49,12 @@ namespace Shared
 
             public void StartClient()
             {
-                // Connect to a remote device.  
+                // Connect to a remote device.
                 try
                 {
-                    // Establish the remote endpoint for the socket.  
-                    // The name of the   
-                    // remote device is "host.contoso.com".  
+                    // Establish the remote endpoint for the socket.
+                    // The name of the
+                    // remote device is "host.contoso.com".
 
                     IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
 
@@ -62,7 +62,7 @@ namespace Shared
                     IPAddress ipAddress = ipHostInfo.AddressList[0];
                     IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
-                    // Create a TCP/IP socket.  
+                    // Create a TCP/IP socket.
                     Socket client = new Socket(ipAddress.AddressFamily,
                         SocketType.Stream, ProtocolType.Tcp);
 

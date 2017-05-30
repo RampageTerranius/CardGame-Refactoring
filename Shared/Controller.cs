@@ -14,14 +14,10 @@ namespace Shared
         public Model Model
         {
             get
-            {
-                return model;
-            }
+            { return model; }
 
             set
-            {
-                model = value;
-            }
+            { model = value; }
         }
 
         public Controller()
