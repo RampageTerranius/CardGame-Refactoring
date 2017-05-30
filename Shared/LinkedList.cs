@@ -32,7 +32,7 @@ namespace Shared
             if (Current == null)
                 Current = Head;
 
-            //if we dotn have a head we will create it
+            //if we dont have a head we will create it
             if (Current == null)
             {
                 Head = new Node<T>(Data);
@@ -40,7 +40,7 @@ namespace Shared
                 return;
             }
 
-            //keep movign forwards till we find the tail
+            //keep moving forwards till we find the tail
             if (Current.Next != null)
                 AddValue(Data, Current.Next);
             else

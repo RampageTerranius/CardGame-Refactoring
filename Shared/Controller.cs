@@ -8,6 +8,8 @@ namespace Shared
 {
     public abstract class Controller
     {
+        protected const int TOTAL_ALLOWED_PLAYERS = 4;
+
         NetworkAdapter networkAdapter;
         Model model;
 
@@ -22,7 +24,6 @@ namespace Shared
 
         public Controller()
         {
-            networkAdapter = new NetworkAdapter();
             model = null;
         }
     }
