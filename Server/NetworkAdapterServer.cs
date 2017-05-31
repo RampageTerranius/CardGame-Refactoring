@@ -3,16 +3,20 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Shared;
 
-namespace Shared
+namespace Server
 {
     public class NetworkAdapterServer : NetworkAdapter
     {
         // Thread signal.  
         public ManualResetEvent allDone = new ManualResetEvent(false);
+        public ManualResetEvent pauser = new ManualResetEvent(false);
+        private Controller controller;
 
-        public NetworkAdapterServer()
+        public NetworkAdapterServer(Controller controller)
         {
+            this.controller = controller;
         }
 
         override public void Start()
@@ -35,11 +39,20 @@ namespace Shared
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
+                running = true;
 
                 while (true)
                 {
                     // Set the event to nonsignaled state.  
                     allDone.Reset();
+
+                    //check if we need to pause the network client
+                    if (paused)
+                    {
+                        Console.WriteLine("Network adapter is paused.");
+                        pauser.WaitOne();
+                    }
+                        
 
                     // Start an asynchronous socket to listen for connections.  
                     Console.WriteLine("Waiting for a connection...");
@@ -50,11 +63,29 @@ namespace Shared
                     // Wait until a connection is made before continuing.  
                     allDone.WaitOne();
                 }
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+        }
+
+        public override void Stop()
+        {
+            throw new NotImplementedException();            
+        }
+
+        public override void Pause()
+        {
+            if (paused)
+            {
+                pauser.Set();
+                paused = false;
+            }
+            else
+            {
+                pauser.Reset();
+                paused = true;
             }
         }
 
@@ -118,6 +149,8 @@ namespace Shared
                         content.Length, content);
                     // Echo the data back to the client.  
                     Send(handler, content);
+
+                    controller.receiveCMD(content.Substring(0, content.Length - 5));           
                 }
                 else
                 {
@@ -125,37 +158,6 @@ namespace Shared
                     handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
                 }
-            }
-        }
-
-        private void Send(Socket handler, String data)
-        {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
-
-            // Begin sending the data to the remote device.  
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), handler);
-        }
-
-        private void SendCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                Socket handler = (Socket)ar.AsyncState;
-
-                // Complete sending the data to the remote device.  
-                int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
             }
         }
     }

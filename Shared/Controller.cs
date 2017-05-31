@@ -10,8 +10,12 @@ namespace Shared
     {
         protected const int TOTAL_ALLOWED_PLAYERS = 4;
 
-        NetworkAdapter networkAdapter;
-        Model model;
+        protected Player[] player;
+
+        private NetworkAdapter ntAdapter;
+        private Model model;
+
+        public abstract void receiveCMD(String CMD);
 
         public Model Model
         {
@@ -20,6 +24,12 @@ namespace Shared
 
             set
             { model = value; }
+        }
+
+        public NetworkAdapter NtAdapter
+        {
+            get { return ntAdapter; }
+            set { ntAdapter = value; }
         }
 
         public Controller()

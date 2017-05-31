@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="NetworkAdapterServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

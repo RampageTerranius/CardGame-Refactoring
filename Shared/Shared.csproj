@@ -45,9 +45,7 @@
     <Compile Include="Deck.cs" />
     <Compile Include="LinkedList.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="Network\NetworkAdapterClient.cs" />
-    <Compile Include="Network\NetworkAdapter.cs" />
-    <Compile Include="Network\NetworkAdapterServer.cs" />
+    <Compile Include="NetworkAdapter.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

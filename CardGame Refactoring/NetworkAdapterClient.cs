@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Shared;
 
-namespace Shared
+namespace Client
 {
     public class NetworkAdapterClient : NetworkAdapter
     {
@@ -57,7 +58,7 @@ namespace Shared
                 // connectDone.WaitOne();
 
                 // Send test data to the remote device.  
-                // Send(client, "This is a test<EOF>");
+                Send(client, "draw<EOF>");
                 // sendDone.WaitOne();
 
                 // Receive the response from the remote device.  
@@ -150,36 +151,6 @@ namespace Shared
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-
-        private void Send(Socket client, String data)
-        {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
-
-            // Begin sending the data to the remote device.  
-            client.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), client);
-        }
-
-        private void SendCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                Socket client = (Socket)ar.AsyncState;
-
-                // Complete sending the data to the remote device.  
-                int bytesSent = client.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to server.", bytesSent);
-
-                // Signal that all bytes have been sent.  
-                sendDone.Set();
             }
             catch (Exception e)
             {
