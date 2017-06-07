@@ -30,7 +30,22 @@ namespace Client
                     Card card = new Card((Suit)int.Parse(split[0]), (Value)int.Parse(split[1]));
                     Model.player.Draw(card);
                     if (Model.player.GetHandValue() > 21)
+                    {
+                        Console.WriteLine("Log:");
+                        for (int i = 0; i < 2; i++)
+                            for (int n = 0; n < 9; n++)                            
+                                if (Model.cmdLog[i, n] != null)
+                                {
+                                    string str = Model.cmdLog[i, n].ToString();
+                                    if (str != null)
+                                        Console.WriteLine(str);
+                                }                             
+                                
+                            
+                                
                         view.BtnDisable("Bust");
+                    }
+                        
                     view.UpdateScreen();
                     break;
 

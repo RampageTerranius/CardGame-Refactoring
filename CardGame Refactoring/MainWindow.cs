@@ -34,8 +34,7 @@ namespace Client
             for (int i = 0; i < 4; i++)
                 for (int n = 0; n < 13; n++)
                 {
-                    string str = "img\\" + (((Value)n).ToString()+ "_of_" + (Suit)i).ToString() + ".png";
-                    
+                    string str = "img\\" + (((Value)n).ToString()+ "_of_" + (Suit)i).ToString() + ".png";                    
                     img[n, i] = new Bitmap(str);
                     //Console.WriteLine("Image loaded: "+ str);
                 }
@@ -80,16 +79,13 @@ namespace Client
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            //if (this.InvokeRequired)
             {
-                //this.Invoke(new MethodInvoker(delegate {
-                    for (int i = 0; i < controller.Model.player.Hand.GetLength(); i++)
-                    {
-                        int value = (int)controller.Model.player.Hand.GetValueAt(i).Value;
-                        int suit = (int)controller.Model.player.Hand.GetValueAt(i).Suit;
-                        e.Graphics.DrawImage(img[value,suit], 10 + (i * 42), 40);                        
-                    }
-                //}));
+                for (int i = 0; i < controller.Model.player.Hand.GetLength(); i++)
+                {
+                    int value = (int)controller.Model.player.Hand.GetValueAt(i).Value;
+                    int suit = (int)controller.Model.player.Hand.GetValueAt(i).Suit;
+                    e.Graphics.DrawImage(img[value,suit], 10 + (i * 42), 40);                        
+                }
             }
             base.OnPaint(e);
         }
