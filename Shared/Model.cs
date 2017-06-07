@@ -8,9 +8,13 @@ namespace Shared
 {
     public abstract class Model
     {
-        Controller controller;
-        Deck deck;
-        public Deck Deck
+        protected Controller controller;
+        protected Deck deck;
+        public Player player;
+
+        public string[,] cmdLog;//0 is commands sent, 1 is commands received
+        
+        public Deck CardDeck
         {
             get { return deck; }
             set { deck = value; }
@@ -24,8 +28,17 @@ namespace Shared
 
         public Model ()
         {
+            cmdLog = new string[2, 10];
+            player = new Player();
             controller = null;
-            deck = null;            
+            deck = new Shared.Deck();
+            deck.ResetDeck();
+            deck.CreateDeck();
+            deck.Shuffle();
+            deck.Shuffle();
+            deck.Shuffle();
+            deck.Shuffle();
+            deck.Shuffle();
         }
     }
 }

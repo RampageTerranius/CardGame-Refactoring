@@ -25,6 +25,10 @@ namespace Shared
         public void CreateDeck()
         {
             ResetDeck();
+
+            for (int i = 0; i < 4; i++)
+                for (int n = 0; n < 13; n++)
+                    CardDeck.AddValue(new Card((Suit)i, (Value)n));
         }
 
         public void Shuffle()

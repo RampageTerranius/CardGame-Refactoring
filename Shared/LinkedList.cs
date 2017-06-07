@@ -8,132 +8,132 @@ namespace Shared
 {
     public class LinkedList<T>
     {
-        Node<T> Head;
-        Node<T> Tail;
-        int Length = 0;
+        private Node<T> head;
+        private Node<T> tail;
+        private int length = 0;
 
         //finds out if the given int is at the first or 2nd half of the length and returns true if at first half
-        private bool StartAtHead(int Index)
+        private bool StartAtHead(int index)
         {
-            if (Index < (int)(Length / 2))
+            if (index < (int)(length / 2))
                 return true;
             else
                 return false;
         }
 
-        public void AddValue(T Data)
+        public void AddValue(T data)
         {
-            AddValue(Data, null);
+            AddValue(data, null);
         }
 
-        private void AddValue(T Data, Node<T> Current)
+        private void AddValue(T data, Node<T> current)
         {
             //first run check
-            if (Current == null)
-                Current = Head;
+            if (current == null)
+                current = head;
 
             //if we dont have a head we will create it
-            if (Current == null)
+            if (current == null)
             {
-                Head = new Node<T>(Data);
-                Length++;
+                head = new Node<T>(data);
+                length++;
                 return;
             }
 
             //keep moving forwards till we find the tail
-            if (Current.Next != null)
-                AddValue(Data, Current.Next);
+            if (current.Next != null)
+                AddValue(data, current.Next);
             else
             {
                 //add data to the end and set the new tail
-                Current.Next = new Node<T>(Data);
-                Current.Next.Last = Current;
-                Tail = Current.Next;
-                Length++;
+                current.Next = new Node<T>(data);
+                current.Next.Last = current;
+                tail = current.Next;
+                length++;
             }
         }
 
-        private bool FindValue(T Data, bool SearchFrontToBack, Node<T> Current)
+        private bool FindValue(T data, bool searchFrontToBack, Node<T> current)
         {
             //check if we should search from the front or the back first
-            if (Current == null)
+            if (current == null)
             {
-                if (SearchFrontToBack)
-                    Current = Head;
+                if (searchFrontToBack)
+                    current = head;
                 else
-                    Current = Tail;
+                    current = tail;
             }
 
             //check if we have the data
-            if (Current.Data.Equals(Data))
+            if (current.Data.Equals(data))
                 return true;
 
             //move through the list (depending on search direction)
-            if (SearchFrontToBack)
+            if (searchFrontToBack)
             {
-                if (Current.Next != null)
-                    return FindValue(Data, SearchFrontToBack, Current.Next);
+                if (current.Next != null)
+                    return FindValue(data, searchFrontToBack, current.Next);
                 else
                     return false;
             }
             else
             {
-                if (Current.Last != null)
-                    return FindValue(Data, SearchFrontToBack, Current.Last);
+                if (current.Last != null)
+                    return FindValue(data, searchFrontToBack, current.Last);
                 else
                     return false;
             }
         }
 
-        public bool FindValue(T Data, bool SearchFrontToBack)
+        public bool FindValue(T Data, bool searchFrontToBack)
         {
-            return FindValue(Data, SearchFrontToBack, null);
+            return FindValue(Data, searchFrontToBack, null);
         }
 
-        public bool FindValue(T Data)
+        public bool FindValue(T data)
         {
-            return FindValue(Data, true);
+            return FindValue(data, true);
         }
 
-        private T GetValueAt(int Index, Node<T> Current)
+        private T GetValueAt(int index, Node<T> current)
         {
-            if (Current == null)
-                Current = Head;
+            if (current == null)
+                current = head;
 
-            if (Index > 0)
+            if (index > 0)
             {
-                if (Current.Next != null)
-                    return GetValueAt(--Index, Current.Next);
+                if (current.Next != null)
+                    return GetValueAt(--index, current.Next);
             }
 
-            return Current.Data;
+            return current.Data;
         }
 
-        public T GetValueAt(int Index)
+        public T GetValueAt(int index)
         {
-            return GetValueAt(Index, null);
+            return GetValueAt(index, null);
         }
 
         public int GetLength()
         {
-            return Length;
+            return length;
         }
 
-        public void PrintValues(bool FrontToBack)
+        public void PrintValues(bool frontToBack)
         {
-            PrintValues(FrontToBack, null);
+            PrintValues(frontToBack, null);
         }
 
-        private void PrintValues(bool FrontToBack, Node<T> Current)
+        private void PrintValues(bool frontToBack, Node<T> current)
         {
-            if (Current == null)
+            if (current == null)
             {
-                if (FrontToBack)
+                if (frontToBack)
                 {
-                    Current = Head;
+                    current = head;
 
                     //lets check if we still have no data
-                    if (Current == null)
+                    if (current == null)
                     {
                         Console.WriteLine("No data");
                         return;
@@ -141,10 +141,10 @@ namespace Shared
                 }
                 else
                 {
-                    Current = Tail;
+                    current = tail;
 
                     //lets check if we still have no data
-                    if (Current == null)
+                    if (current == null)
                     {
                         Console.WriteLine("No data");
                         return;
@@ -152,150 +152,150 @@ namespace Shared
                 }
             }
 
-            Current.ToString();
+            current.ToString();
 
-            if (FrontToBack)
+            if (frontToBack)
             {
-                if (Current.Next != null)
-                    PrintValues(FrontToBack, Current.Next);
+                if (current.Next != null)
+                    PrintValues(frontToBack, current.Next);
                 else
                     return;
             }
             else
             {
-                if (Current.Last != null)
-                    PrintValues(FrontToBack, Current.Last);
+                if (current.Last != null)
+                    PrintValues(frontToBack, current.Last);
                 else
                     return;
             }
         }
 
-        private void Remove(T Data, bool RemoveFirst, bool FrontToBack, Node<T> Current)
+        private void Remove(T data, bool removeFirst, bool frontToBack, Node<T> current)
         {
             //if we dont have a head we have no data and as such can not remove
-            if (Head == null)
+            if (head == null)
                 return;
 
             //first run check
-            if (Current == null)
+            if (current == null)
             {
-                if (FrontToBack)
-                    Current = Head;
+                if (frontToBack)
+                    current = head;
                 else
-                    Current = Tail;
+                    current = tail;
             }
 
-            if (Current.Data.Equals(Data))
+            if (current.Data.Equals(data))
             {
-                if (FrontToBack)
+                if (frontToBack)
                 {
-                    if (Current == Head)
-                        Head = Head.Next;
+                    if (current == head)
+                        head = head.Next;
                     else
                     {
-                        Node<T> last = Current.Last;
-                        Node<T> next = Current.Next;
+                        Node<T> last = current.Last;
+                        Node<T> next = current.Next;
                         last.Next = next;
                         next.Last = last;
                     }
                 }
                 else
                 {
-                    if (Current == Tail)
-                        Tail = Tail.Last;
+                    if (current == tail)
+                        tail = tail.Last;
                     else
                     {
-                        Node<T> last = Current.Last;
-                        Node<T> next = Current.Next;
+                        Node<T> last = current.Last;
+                        Node<T> next = current.Next;
                         last.Next = next;
                         next.Last = last;
                     }
                 }
 
-                Length--;
-                if (RemoveFirst)
+                length--;
+                if (removeFirst)
                     return;
             }
             else
             {
-                if (FrontToBack)
+                if (frontToBack)
                 {
-                    if (Current.Next != null)
-                        Remove(Data, RemoveFirst, FrontToBack, Current.Next);
+                    if (current.Next != null)
+                        Remove(data, removeFirst, frontToBack, current.Next);
                     else
                         return;
                 }
 
                 else
                 {
-                    if (Current.Last != null)
-                        Remove(Data, RemoveFirst, FrontToBack, Current.Last);
+                    if (current.Last != null)
+                        Remove(data, removeFirst, frontToBack, current.Last);
                     else
                         return;
                 }
             }
         }
 
-        public void RemoveValue(T Data)
+        public void RemoveValue(T data)
         {
-            Remove(Data, false, false, null);
+            Remove(data, false, false, null);
         }
 
-        public void RemoveFirstValue(T Data)
+        public void RemoveFirstValue(T data)
         {
-            Remove(Data, true, false, null);
+            Remove(data, true, false, null);
         }
 
-        private void RemoveValueAt(int Index, Node<T> Current)
+        private void RemoveValueAt(int index, Node<T> current)
         {
             //check if first run
-            if (Current == null)
-                Current = Head;
+            if (current == null)
+                current = head;
 
-            if (Index < Length)
+            if (index < length)
             {
-                if (Index > 0)
-                    RemoveValueAt(--Index, Current.Next);
+                if (index > 0)
+                    RemoveValueAt(--index, current.Next);
                 else
                 {
-                    if (Current == Head)
+                    if (current == head)
                     {
-                        Head = Head.Next;
-                        Length--;
+                        head = head.Next;
+                        length--;
                         return;
                     }
                     else
                     {
-                        Node<T> last = Current.Last;
-                        Node<T> next = Current.Next;
+                        Node<T> last = current.Last;
+                        Node<T> next = current.Next;
                         if (last != null)
                             last.Next = next;
                         if (next != null)
                             next.Last = last;
-                        Length--;
+                        length--;
                         return;
                     }
                 }
             }
         }
 
-        public void RemoveValueAt(int Index)
+        public void RemoveValueAt(int index)
         {
-            RemoveValueAt(Index, null);
+            RemoveValueAt(index, null);
         }
 
-        public void ModifyValueAt(int Index, T Data)
+        public void ModifyValueAt(int index, T data)
         {
-            Node<T> lCurrent = Head;
+            Node<T> lCurrent = head;
             Node<T> lPrevious = null;
             int lLoop = 0;
 
-            if (Index <= Length - 1 && Index >= 0)
+            if (index <= length - 1 && index >= 0)
                 while (lCurrent != null)
                 {
-                    if (lLoop == Index)
+                    if (lLoop == index)
                     {
-                        lCurrent.Data = Data;
+                        lCurrent.Data = data;
                         return;
                     }
 
@@ -307,11 +307,11 @@ namespace Shared
 
         public T[] ToArray()
         {
-            T[] lReturn = new T[Length];
+            T[] lReturn = new T[length];
             int lLoop = 0;
-            Node<T> lCurrent = Head;
+            Node<T> lCurrent = head;
 
-            while (lLoop < Length)
+            while (lLoop < length)
             {
                 lReturn[lLoop] = lCurrent.Data;
                 lCurrent = lCurrent.Next;

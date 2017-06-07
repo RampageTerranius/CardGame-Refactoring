@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 		{980AEF1D-6F11-4EAF-83D1-A251CD52A91C} = {980AEF1D-6F11-4EAF-83D1-A251CD52A91C}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6D76EEB-8DE2-4029-9B46-9ACBBAD14D64}"
+	ProjectSection(SolutionItems) = preProject
+		client server data.txt = client server data.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -28,6 +28,9 @@ namespace Shared
         //if the network adapter has been started
         protected bool running = false;
 
+        //thread stopper for pausing
+        public ManualResetEvent pauser = new ManualResetEvent(false);
+
         //properties
         public bool isPaused { get { return paused; } }
         public bool isRunning { get { return running; } }
@@ -35,16 +38,36 @@ namespace Shared
         //abstract methods  
         public abstract void Start();
         public abstract void Stop();
-        public abstract void Pause();
-
-        protected void Send(Socket handler, String data)
+        public void Pause()
         {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            if (paused)
+            {
+                pauser.Set();
+                paused = false;
+            }
+            else
+            {
+                pauser.Reset();
+                paused = true;
+            }
+        }
 
-            // Begin sending the data to the remote device.  
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), handler);
+        public void Send(Socket handler, String data)
+        {
+            if (handler != null)
+            {
+                // Convert the string data to byte data using ASCII encoding.  
+                byte[] byteData = Encoding.ASCII.GetBytes(data);
+
+                // Begin sending the data to the remote device.  
+                handler.BeginSend(byteData, 0, byteData.Length, 0,
+                    new AsyncCallback(SendCallback), handler);
+
+                Console.WriteLine("Data sent: " + data);
+            }
+            else
+                Console.WriteLine("Null socket");
+
         }
 
         private void SendCallback(IAsyncResult ar)
@@ -56,18 +79,12 @@ namespace Shared
 
                 // Complete sending the data to the remote device.  
                 int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-
+                Console.WriteLine("Sent {0} bytes.", bytesSent);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
         }
-
-
     }
 }

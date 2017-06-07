@@ -5,19 +5,16 @@ namespace Client
 {
     public class ClientModel : Model
     {
-        Viewer view;
-
-        public Viewer View
+        private MainWindow view;
+        public MainWindow View
         {
-            get
-            {
-                return view;
-            }
+            get { return view; }
+            set { view = value; }
+        }
 
-            set
-            {
-                view = value;
-            }
+        public ClientModel()
+        {
+            view = null;
         }
     }
 }

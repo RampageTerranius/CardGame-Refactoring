@@ -1,0 +1,10 @@
+data needed
+client:
+players
+player cards (unknown cards not given only the fact that it has a card given)
+does it need to know the deck? really only needs to know cards left in deck and what cards are drawn
+
+server:
+players
+player cards (all data)
+the deck

@@ -23,7 +23,7 @@ namespace Server
 
         static public void StartServer()
         {
-            c.networkAdapter.Start();
+            c.NtAdapter.Start();
         }
     }
 }

@@ -1,26 +1,45 @@
 ﻿//controls all the data to do with game state and the like
 using System;
 using Shared;
+using System.Net.Sockets;
 
 namespace Client
 {
     public class ClientController : Controller
     {
-        
-        private int totalPlayers;
-        public NetworkAdapterClient networkAdapter;
+        public NetworkAdapterClient NtAdapter;
+        public Socket socket;
+        MainWindow view;
 
-        public ClientController ()
+        public ClientController (MainWindow view)
         {
-            player = new Player[TOTAL_ALLOWED_PLAYERS];
-            totalPlayers = 0;
-            networkAdapter = new NetworkAdapterClient(this);
+            this.view = view;
+            NtAdapter = new NetworkAdapterClient(this);
         }
 
         override public void receiveCMD(string CMD)
         {
-            switch (CMD.ToLower())
+            logCMD(1, CMD);
+            CMD = CMD.ToLower();
+            string[] cmd = CMD.Split(' ');            
+            switch (cmd[0])
             {
+                case "draw":
+                    Console.WriteLine("Draw command" );
+                    string[] split = cmd[1].Split(',');
+                    Card card = new Card((Suit)int.Parse(split[0]), (Value)int.Parse(split[1]));
+                    Model.player.Draw(card);
+                    if (Model.player.GetHandValue() > 21)
+                        view.BtnDisable("Bust");
+                    view.UpdateScreen();
+                    break;
+
+                case "empty":
+                    Console.WriteLine("Empty deck command");
+                    view.BtnDisable("Empty Deck");
+                    view.UpdateScreen();
+                    break;
+
                 default:
                     Console.WriteLine("Unknown command: " + CMD);
                     break;

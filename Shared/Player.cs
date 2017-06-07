@@ -9,7 +9,6 @@ namespace Shared
     public class Player
     {
         public LinkedList<Card> Hand;
-        double cash;
 
         public Player()
         {
@@ -21,12 +20,22 @@ namespace Shared
             Hand = new LinkedList<Card>();
         }
 
-        public void Draw(Deck deck)
+        public Card Draw(Deck deck)
         {
             if (deck.CardDeck.GetLength() > 0)
+            {
                 Hand.AddValue(deck.Draw());
+                return Hand.GetValueAt(Hand.GetLength()-1);
+            }                
             else
                 Console.WriteLine("No cards left in deck to draw");
+
+            return null;
+        }
+
+        public void Draw(Card card)
+        {
+            Hand.AddValue(card);
         }
 
         public void Drop(Deck deck)
@@ -46,6 +55,14 @@ namespace Shared
             Console.WriteLine("Players Hand:");
             Hand.PrintValues(true);
             Console.WriteLine();
+        }
+
+        public int GetHandValue()
+        {
+            int val = 0;
+            for (int i = 0; i < Hand.GetLength(); i++)
+                val += (int)Hand.GetValueAt(i).CardValue();
+            return val;
         }
 
         public void Shuffle()
